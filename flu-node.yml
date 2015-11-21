@@ -1,0 +1,5 @@
+- hosts: node
+  sudo: yes
+  roles:
+  - role: common
+  - role: flu-node

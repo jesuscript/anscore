@@ -1,0 +1,9 @@
+- name: update software
+  apt: update_cache=yes #upgrade=yes
+
+- name: install prereqs
+  apt: state=present pkg={{ item }}
+  with_items:
+    - git
+    - build-essential
+  

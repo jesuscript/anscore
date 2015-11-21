@@ -1,0 +1,12 @@
+- name: add PPAs
+  apt_repository: repo={{ item }}
+  with_items:
+    - "ppa:ethereum/ethereum-qt"
+    - "ppa:ethereum/ethereum"
+    - "ppa:ethereum/ethereum-dev"
+
+- name: update apt
+  apt: update_cache=yes
+
+- name: install flu
+  apt: state=present pkg=flu
