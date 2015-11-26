@@ -10,3 +10,22 @@
 
 - name: install flu
   apt: state=present pkg=flu
+
+- name: register flu as a service
+  sudo: yes
+  template: src=flu-service.conf dest=/etc/init/flu.conf
+
+- name: reload init
+  sudo: yes
+  shell: telinit u
+
+- name: stop the flu service
+  sudo: yes
+  service: name=flu state=stopped
+  tags:
+    - kill
+
+- name: start the flu service
+  sudo: yes
+  service: name=flu state=started
+  
