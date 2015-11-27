@@ -1,0 +1,4 @@
+- hosts: node
+  sudo: yes
+  roles:
+  - role: flu-network

@@ -28,4 +28,5 @@
 - name: start the flu service
   sudo: yes
   service: name=flu state=started
-  
+  tags:
+    - start
