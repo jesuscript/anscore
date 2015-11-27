@@ -2,6 +2,9 @@
   "sealEngine": "BasicAuthority",
   "options": {
     "authorities": [
+      {% for host in groups['signer'] %}
+      "{{ hostvars[host].address }}"{% if not loop.last %},{% endif %} 
+      {% endfor %}
     ]
   },
   "params": {
