@@ -10,23 +10,34 @@
 
 - name: install flu
   apt: state=present pkg=flu
+  tags:
+    - update
+
+- name: create fluidity dir
+  file: path={{ base_dir }}/.fluidity
 
 - name: register flu as a service
   sudo: yes
   template: src=flu-service.conf dest=/etc/init/flu.conf
+  tags:
+    - update
 
 - name: reload init
   sudo: yes
   shell: telinit u
+  tags:
+    - update
 
 - name: stop the flu service
   sudo: yes
   service: name=flu state=stopped
   tags:
+    - update
     - kill
 
 - name: start the flu service
   sudo: yes
   service: name=flu state=started
   tags:
+    - update
     - start

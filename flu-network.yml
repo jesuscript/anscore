@@ -1,4 +1,6 @@
 - hosts: node
   sudo: yes
   roles:
-  - role: flu-network
+    - role: flu-network
+  handlers:
+    - include: handlers/main.yml

@@ -2,18 +2,13 @@
   shell: tac /var/log/flu-daemon.log | grep -m1 -oP '(Node ID:)([^\@])*' | awk '{print $3}'
   register: v_enode
 
-- name: print enode var
-  debug: var=v_enode
-  
-- name: save output as fact
+- name: save output as a fact
   set_fact: enode={{v_enode.stdout}}
 
-- name: print enodes
-  debug: var=enode
-  with_items: groups['node']
-  
 - name: copy flu configs over
-  template: src=flu-config.json dest="{{base_dir}}/flu.json"
+  template: src=flu-config.json dest="{{base_dir}}/.fluidity/flu.json"
+  notify: restart flu
+
 
   
 
