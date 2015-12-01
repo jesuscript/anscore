@@ -1,0 +1,4 @@
+#!/bin/bash
+
+node cloud_shepard/digital_ocean.js destroy -p $DO_KEY
+

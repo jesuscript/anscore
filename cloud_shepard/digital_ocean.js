@@ -47,12 +47,12 @@ var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key
     }, function(err, ress){
       if(err) throw err;
       
-      console.log("Initialised", options.create.number, "droplets");
+      var report = fancyReporter();
 
       waitOperationEnd(function(body){
         var numDone = _.where(body.droplets, {status: "active"}).length;
         
-        console.log("Created", numDone+"/"+options.create.number,"droplets.");
+        report("Creating " + options.create.number + " droplets", numDone, options.create.number);
 
         return (numDone === options.create.number);
       });
@@ -63,14 +63,15 @@ var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key
   "destroy": function(){
     listDroplets(function(err, res, body){
       async.each(_.pluck(body.droplets, "id"), function(id, cb){
-        console.log("destroying droplet:", id);
-        
         api.dropletsDelete(id, cb);
       }, function(err){
         if(err) throw err;
 
+        var report = fancyReporter(),
+            total = body.droplets.length;
+
         waitOperationEnd(function(body){
-          console.log("Active droplets:", body.droplets.length);
+          report("Destroying " + total + " droplets", body.droplets.length, total);
           
           return !body.droplets.length;
         });
@@ -86,16 +87,26 @@ var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key
 function waitOperationEnd(isDone){
   listDroplets(function(err, res, body){
     if(!isDone(body)){
-      setTimeout(function(){waitOperationEnd(isDone);}, 1000);
+      setTimeout(function(){waitOperationEnd(isDone);}, 1500);
+    }else{
+      console.log("\nDone");
     }
   });
 }
-
 
 function listDroplets(cb){
   api.dropletsGetAll({
     name: options._all.name
   }, cb);
+}
+
+function fancyReporter(){
+  return function(msg, current, total){
+    process.stdout.clearLine();
+    process.stdout.cursorTo(0);
+    process.stdout.write(msg + "  [ " + _.repeat("▣",current) + _.repeat("_", total-current)
+                         + " ]");
+  };
 }
 
 
