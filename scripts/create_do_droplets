@@ -1,6 +1,5 @@
 #!/bin/bash
 
 COUNT=$1
-echo 
 
 node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -n ${COUNT:=3}

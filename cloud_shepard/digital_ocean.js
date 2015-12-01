@@ -12,15 +12,18 @@ var cli = commandLineArgs([
   { name: "ssh-key", alias: "s", type: String, group: "create",
     description: "Public ssh key file (required)"},
   { name: "number", alias: "n", type: Number, group: "create",
-    description: "Number of nodes to create (default: 3)" }
+    description: "Number of nodes to create (default: 3)" },
+  { name: "help", alias: "h", description: "Show usage"}
 ]);
-
 
 try{
   var options = cli.parse();
 }catch(e){
   improperUsage();
 }
+
+if(options._all.help) improperUsage();
+
 
 var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key provided!"), 25);
 
@@ -55,6 +58,10 @@ var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key
         report("Creating " + options.create.number + " droplets", numDone, options.create.number);
 
         return (numDone === options.create.number);
+      }, function(){
+        getInventory(function(inventory){
+          console.log(inventory);
+        });
       });
       
     });
@@ -80,16 +87,41 @@ var api = new DigitalOcean(options._none["api-key"] || improperUsage("No API key
   },
   "list": function(){
     listDroplets(function(err, res, body){ console.log(body); });
+  },
+  "inventory": function(){
+    getInventory(function(inventory){
+      if(inventory){
+        console.log(inventory);
+      }else{
+        console.log("No droplets found");
+      }
+    });
   }
 }[options.control.mode] || improperUsage)();
 
+function getInventory(cb){
+    listDroplets(function(err, res, body){
+      if(body.droplets.length){
+        var inv = "";
+        
+        inv = inv.concat("[node]\n")
+          .concat(_.pluck(body.droplets,["networks","v4","0","ip_address"]).join("\n"));
+        cb(inv);
+      }else{
+        cb();
+      }
+    });
+}
 
-function waitOperationEnd(isDone){
+
+function waitOperationEnd(isDone, cb){
   listDroplets(function(err, res, body){
     if(!isDone(body)){
-      setTimeout(function(){waitOperationEnd(isDone);}, 1500);
+      setTimeout(function(){waitOperationEnd(isDone,cb);}, 1500);
     }else{
       console.log("\nDone");
+
+      if(cb) cb();
     }
   });
 }
@@ -126,6 +158,5 @@ function improperUsage(msg){
     }
   }));
   process.exit();
-  
 };
 
