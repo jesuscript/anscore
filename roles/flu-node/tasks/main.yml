@@ -28,6 +28,10 @@
   tags:
     - update
 
+- name: open 40404 for UDP
+  ufw: rule=allow port=40404 proto=udp
+  notify: reload ufw
+
 - name: stop the flu service
   sudo: yes
   service: name=flu state=stopped

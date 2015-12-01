@@ -1,2 +1,5 @@
 - name: restart flu
   service: name=flu state=restarted
+
+- name: reload ufw
+  ufw: state=reloaded
