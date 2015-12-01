@@ -115,5 +115,6 @@ function improperUsage(msg){
     }
   }));
   process.exit();
+  
 };
 
