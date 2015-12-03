@@ -1,4 +1,6 @@
-- hosts: node
+- hosts:
+    - node
+    - signer
   sudo: yes
   roles:
     - role: common

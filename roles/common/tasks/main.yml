@@ -6,4 +6,6 @@
   with_items:
     - git
     - build-essential
-  
+    - python-software-properties
+    - python-dev
+    - python-pip

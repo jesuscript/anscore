@@ -2,4 +2,4 @@
 
 COUNT=$1
 
-node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -n ${COUNT:=3}
+node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -c config/do-droplets.json -w group_vars/inventory/do_auto
