@@ -1,0 +1,6 @@
+- name: add io.js v2.x PPA
+  shell: curl -sL https://deb.nodesource.com/setup_iojs_2.x | sudo -E bash -
+
+- name: install deps
+  apt: state=present update_cache=yes pkg={{iojs}}
+

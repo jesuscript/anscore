@@ -9,3 +9,5 @@
     - python-software-properties
     - python-dev
     - python-pip
+    - curl
+

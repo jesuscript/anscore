@@ -25,7 +25,7 @@
   },
   "network": {
     "nodes": [
-      {% for host in groups['node'] %}
+      {% for host in (groups['validator'] + groups['signer']) %}
       "{{ hostvars[host].enode }}@{{host}}:40404"{% if not loop.last %},{% endif %} 
       {% endfor %}
     ]

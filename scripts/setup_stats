@@ -1,0 +1,6 @@
+#!/bin/bash
+
+export ANSIBLE_HOST_KEY_CHECKING=False
+
+ansible-playbook install-python.yml -vvvv -i group_vars/inventory/do_auto
+ansible-playbook stats.yml -vvvv -i group_vars/inventory/do_auto

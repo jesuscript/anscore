@@ -1,0 +1,3 @@
+[submodule "cloud_shepard"]
+	path = cloud_shepard
+	url = git@github.com:jesuscript/cloud_shepard.git

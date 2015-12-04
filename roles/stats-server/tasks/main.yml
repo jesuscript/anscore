@@ -1,0 +1,31 @@
+- name: clone git repository
+  git: repo={{ stats_repo }} dest={{install_dir}} force=yes
+  tags: update
+
+- name: npm install globals
+  shell: npm install --no-optional chdir={{install_dir}}
+  tags: update
+
+- name: npm install globals
+  npm: name={{ item }} global=yes
+  with_items:
+    - grunt-cli
+    - pm2
+
+- name: build full
+  shell: grunt chdir={{install_dir}}
+  tags: update
+
+- name: open 3000 for TCP
+  ufw: rule=allow port=3000 proto=tcp
+  notify: reload ufw
+
+- name: copy the pm2 template
+  sudo: no
+  template: src=pm2.json dest={{ base_dir }}/stats.json
+  tags: update
+
+- name: start or restart pm2
+  sudo: no
+  shell: pm2 startOrRestart {{ base_dir }}/stats.json
+  tags: update

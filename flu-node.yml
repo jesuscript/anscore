@@ -1,5 +1,5 @@
 - hosts:
-    - node
+    - validator
     - signer
   sudo: yes
   roles:

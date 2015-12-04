@@ -1,0 +1,11 @@
+- hosts:
+    - stats
+  sudo: yes
+  roles:
+    - role: common
+    - role: nodejs
+    - { role: stats-server,
+        stats_repo: "https://github.com/jesuscript/eth-netstats.git",
+        install_dir: "{{ base_dir }}/stats" }
+  handlers:
+    - include: handlers/main.yml
