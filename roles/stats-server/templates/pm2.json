@@ -7,7 +7,7 @@
     "watch": false,
     "cwd": "{{install_dir}}",
     "env": {
-      "WS_SECRET": "flunet"
+      "WS_SECRET": "{{ ws_secret }}"
     }
   }]
 }

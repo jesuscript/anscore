@@ -1,0 +1,19 @@
+- name: clone git repository
+  git: repo={{ repo }} dest={{install_dir}} force=yes
+  tags: update
+
+- name: npm install locals
+  shell: npm install --no-optional chdir={{install_dir}}
+  tags: update
+
+- name: install pm2
+  sudo: yes
+  npm: name=pm2 global=yes
+
+- name: copy the pm2 config
+  template: src=pm2.json dest="{{install_dir}}/flunet.json"
+  tags: update
+
+- name: start or restart pm2
+  shell: pm2 startOrRestart {{ install_dir }}/flunet.json
+  tags: update

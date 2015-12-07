@@ -6,6 +6,19 @@
     - role: nodejs
     - { role: stats-server,
         stats_repo: "https://github.com/jesuscript/eth-netstats.git",
-        install_dir: "{{ base_dir }}/stats" }
+        install_dir: "{{ base_dir }}/stats",
+        ws_secret: "flunet" }
+  handlers:
+    - include: handlers/main.yml
+
+- hosts:
+    - validator
+    - signer
+  roles:
+    - role: nodejs
+    - { role: stats-client,
+        ws_secret: "flunet",
+        repo: "https://github.com/jesuscript/eth-net-intelligence-api.git",
+        install_dir: "{{ base_dir }}/stats-client" }
   handlers:
     - include: handlers/main.yml

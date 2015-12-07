@@ -1,6 +1,6 @@
 #!/bin/bash
 
-node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -c config/do-droplets.json -w group_vars/inventory/do_auto
+node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -c config/do-full.json -w group_vars/inventory/do_auto
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 

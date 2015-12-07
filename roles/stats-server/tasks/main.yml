@@ -2,7 +2,7 @@
   git: repo={{ stats_repo }} dest={{install_dir}} force=yes
   tags: update
 
-- name: npm install globals
+- name: npm install locals
   shell: npm install --no-optional chdir={{install_dir}}
   tags: update
 
