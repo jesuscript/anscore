@@ -1,0 +1,12 @@
+ansible_ssh_user: "{{ user | default('root') }}"
+ansible_ssh_port: "{{ ssh_port }}"
+
+base_dir: "/home/{{user}}"
+ssh_port: 22
+authorized_key: "{{ lookup('file', './group_vars/sshkeys/key.pub') }}"
+#authorized_key: ./group_vars/sshkeys/key.pub
+
+ssh_pub_key: ./group_vars/sshkeys/key.pub
+ansible_ssh_private_key_file: ./group_vars/sshkeys/key
+
+flu_config_path: "{{base_dir}}/.flu.json"

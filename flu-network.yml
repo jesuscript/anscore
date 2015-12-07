@@ -6,3 +6,10 @@
     - role: flu-network
   handlers:
     - include: handlers/main.yml
+
+- hosts:
+    - validator
+  roles:
+    - { role: flu-service,
+        flu_args: "--jsonrpc --config {{flu_config_path}} --start-sealing" }
+      

@@ -1,0 +1,36 @@
+# - name: register flu as a service
+#   template: src=flu-upstart-service.conf dest=/etc/init/flu.conf
+#   tags:
+#     - update
+
+# - name: reload init
+#   shell: telinit u
+#   tags:
+#     - update
+
+- name: register flu as a service
+  sudo: yes
+  template: src=flu-systemd.service dest=/etc/systemd/system/flu.service
+  tags:
+    - update
+
+- name: enable the flu service
+  sudo: yes
+  shell: systemctl enable /etc/systemd/system/flu.service
+  tags:
+    - update
+
+- name: stop the flu service
+  sudo: yes
+  service: name=flu state=stopped
+  tags:
+    - update
+    - kill
+
+- name: start the flu service
+  sudo: yes
+  service: name=flu state=started
+  tags:
+    - update
+    - start
+    

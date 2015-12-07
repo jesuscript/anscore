@@ -4,6 +4,7 @@ node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.
 
 export ANSIBLE_HOST_KEY_CHECKING=False
 
-ansible-playbook install-python.yml -vvvv -i group_vars/inventory/do_auto
-ansible-playbook flu-node.yml -vvvv -i group_vars/inventory/do_auto
-ansible-playbook flu-network.yml -vvvv -i group_vars/inventory/do_auto
+ansible-playbook install-python.yml -v -i group_vars/inventory/do_auto
+ansible-playbook flu-node.yml -v -i group_vars/inventory/do_auto
+ansible-playbook flu-network.yml -v -i group_vars/inventory/do_auto
+ansible-playbook stats.yml -v -i group_vars/inventory/do_auto

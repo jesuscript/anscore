@@ -16,25 +16,6 @@
 - name: create fluidity dir
   file: path={{ base_dir }}/.fluidity state=directory
 
-# - name: register flu as a service
-#   template: src=flu-upstart-service.conf dest=/etc/init/flu.conf
-#   tags:
-#     - update
-
-# - name: reload init
-#   shell: telinit u
-#   tags:
-#     - update
-
-- name: register flu as a service
-  template: src=flu-systemd-service.conf dest=/etc/systemd/system/flu.service
-  tags:
-    - update
-
-- name: enable the flu service
-  shell: systemctl enable /etc/systemd/system/flu.service
-  tags:
-    - update
 
 - name: open 40404 for UDP
   ufw: rule=allow port=40404 proto=udp
@@ -43,16 +24,5 @@
 - name: copy flu configs over
   template: src=flu-config.json dest="{{flu_config_path}}"
 
-- name: stop the flu service
-  sudo: yes
-  service: name=flu state=stopped
-  tags:
-    - update
-    - kill
 
-- name: start the flu service
-  sudo: yes
-  service: name=flu state=started
-  tags:
-    - update
-    - start
+  
