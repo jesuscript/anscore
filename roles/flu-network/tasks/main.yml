@@ -29,10 +29,6 @@
   template: src=flu-config.json dest="{{flu_config_path}}"
   notify: restart flu
 
-# TODO: enable only for "rpc" hosts
-- name: open the rpc port
-  ufw: rule=allow port=8545 proto=tcp
-  notify: reload ufw
 
 
  

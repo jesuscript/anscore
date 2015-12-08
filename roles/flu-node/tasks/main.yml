@@ -16,7 +16,6 @@
 - name: create fluidity dir
   file: path={{ base_dir }}/.fluidity state=directory
 
-
 - name: open 40404 for UDP
   ufw: rule=allow port=40404 proto=udp
   notify: reload ufw
@@ -24,5 +23,11 @@
 - name: copy flu configs over
   template: src=flu-config.json dest="{{flu_config_path}}"
 
+
+#TODO: open only for 'rpc' nodes
+- name: open the rpc port
+  #when: "'validator' in group_names"
+  ufw: rule=allow port=8545 proto=tcp
+  notify: reload ufw
 
   

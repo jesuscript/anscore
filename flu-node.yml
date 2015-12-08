@@ -1,4 +1,5 @@
 - hosts:
+    # - node
     - validator
     - signer
   sudo: yes
@@ -6,6 +7,7 @@
     - role: common
     - role: flu-node
     - { role: flu-service,
-        flu_args: "--jsonrpc --config {{flu_config_path}}" }
+        flu_args: "--jsonrpc --jsonrpc-cors-domain '*' --config {{flu_config_path}}" }
   handlers:
     - include: handlers/main.yml
+
