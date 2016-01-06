@@ -22,6 +22,9 @@
     "gasLimit": "0x1000000000000"
   },
   "accounts": {
+    "be862ad9abfe6f22bcb087716c7d89a26051f74c": {
+      "wei": "1000000000000000000000"
+    },
     "0000000000000000000000000000000000000001": {
       "wei": "1",
       "precompiled": { "name": "ecrecover", "linear": { "base": 3000, "word": 0 } }
@@ -41,7 +44,7 @@
   },
   "network": {
     "nodes": [
-      {% for host in (groups['validator'] + groups['signer']) %}
+      {% for host in groups['node'] %}
       "{{ hostvars[host].enode }}@{{host}}:40404"{% if not loop.last %},{% endif %} 
       {% endfor %}
     ]

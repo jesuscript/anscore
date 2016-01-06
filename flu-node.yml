@@ -1,13 +1,11 @@
 - hosts:
-    # - node
-    - validator
-    - signer
+    - node
   sudo: yes
   roles:
     - role: common
+    - role: aeriscloud.docker  
+    - role: andrewrothstein.docker-py
     - role: flu-node
-    - { role: flu-service,
-        flu_args: "--jsonrpc --jsonrpc-cors-domain '*' --config {{flu_config_path}}" }
   handlers:
     - include: handlers/main.yml
 

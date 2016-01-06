@@ -1,15 +1,8 @@
 - hosts:
-    - validator
-    - signer
+    - node
   sudo: yes
   roles:
     - role: flu-network
   handlers:
     - include: handlers/main.yml
-
-- hosts:
-    - validator
-  roles:
-    - { role: flu-service,
-        flu_args: "--jsonrpc --jsonrpc-cors-domain '*' --config {{flu_config_path}} --start-sealing"}
       

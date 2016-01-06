@@ -17,7 +17,7 @@
       "LISTENING_PORT"  : "40404",
       "INSTANCE_NAME"   : "{{ inventory_hostname }}: {{ group_names | join(',') }}",
       "CONTACT_DETAILS" : "{{ inventory_hostname }}",
-      "WS_SERVER"       : "ws://{{ groups['stats'][0] }}:3000",
+      "WS_SERVER"       : "ws://{{ groups['stats-server'][0] }}:3000",
       "WS_SECRET"       : "{{ ws_secret }}",
       "VERBOSITY"       : 2
           

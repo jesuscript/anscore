@@ -1,0 +1,5 @@
+- src: aeriscloud.docker
+  path: dependency_roles
+
+- src: andrewrothstein.docker-py
+  path: dependency_roles  

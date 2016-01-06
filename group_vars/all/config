@@ -1,7 +1,7 @@
 ansible_ssh_user: "{{ user | default('root') }}"
 ansible_ssh_port: "{{ ssh_port }}"
 
-base_dir: "/home/{{user}}"
+base_dir: "{{ ansible_env.HOME }}"
 ssh_port: 22
 authorized_key: "{{ lookup('file', './group_vars/sshkeys/key.pub') }}"
 #authorized_key: ./group_vars/sshkeys/key.pub

@@ -1,5 +1,5 @@
 - hosts:
-    - stats
+    - stats-server
   sudo: yes
   roles:
     - role: common
@@ -12,8 +12,7 @@
     - include: handlers/main.yml
 
 - hosts:
-    - validator
-    - signer
+    - node
   roles:
     - role: nodejs
     - { role: stats-client,

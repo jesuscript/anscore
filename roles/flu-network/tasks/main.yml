@@ -1,9 +1,5 @@
-# - name: get enode ID
-#   shell: tac /var/log/flu-daemon.log | grep -m1 -oP '(Node ID:)([^\@])*' | awk '{print $3}'
-#   register: v_enode
-
 - name: get enode ID
-  shell: journalctl -u flu.service | grep -m1 -oP '(Node ID:)([^\@])*' | awk '{print $3}'
+  shell: docker logs flu 2>&1 | grep -m1 -oP '(Node ID:)([^\@])*' | awk '{print $3}'
   register: v_enode
   until: v_enode.stdout != ""
   retries: 20
@@ -13,14 +9,11 @@
   shell: curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}' http://localhost:8545 
   register: v_accounts_res
   when: "'signer' in group_names"
-  tags: test
-
 
 - name: save address as a fact
   set_fact:
     address: "{{ (v_accounts_res.stdout|from_json).result[0] }}"
   when: "'signer' in group_names"
-  tags: test
 
 - name: save enode as a fact
   set_fact: enode={{v_enode.stdout}}
