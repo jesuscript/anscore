@@ -1,0 +1,6 @@
+[submodule "roles/charlie-common"]
+	path = roles/charlie-common
+	url = https://github.com/jesuscript/charlie-common.git
+[submodule "roles/charlie-flu"]
+	path = roles/charlie-flu
+	url = https://github.com/jesuscript/charlie-flu.git

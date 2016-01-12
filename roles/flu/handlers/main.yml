@@ -1,8 +1,0 @@
-- name: restart flu
-  docker:
-    state: restarted
-    name: flu
-    image: jesuscript/flu
-
-- name: reload ufw
-  ufw: state=reloaded
