@@ -1,16 +1,21 @@
 {
-  "image": "ubuntu-15-10-x64",
-  "name": "flunode",
-  "size": "512mb",
-  "hosts": [{
-    "hosts": 2,
-    "services": ["node", "rpc"]
-  },{
-    "hosts": 2,
-    "services": ["signer", "node"]
-  },{
-    "hosts": 1,
-    "services": ["stats-server"],
-    "size": "1gb"
-  }]
+  "apiKey": "71c9a7add294117d93d5e5f362fc144b089fc082e6c7af608be0542c59e674dc",
+  "sshKey": "group_vars/sshkeys/key.pub",
+  "ansibleInventory": "group_vars/inventory/do_auto",
+  "droplets": {
+    "image": "ubuntu-15-10-x64",
+    "name": "flunode",
+    "size": "512mb",
+    "hosts": [{
+      "number": 2,
+      "hostnames": ["node", "rpc"]
+    },{
+      "number": 2,
+      "hostnames": ["signer", "node"]
+    },{
+      "number": 1,
+      "hostnames": ["stats-server"],
+      "size": "1gb"
+    }]
+  }
 }
