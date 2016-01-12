@@ -1,3 +1,0 @@
-#!/bin/bash
-
-node cloud_shepard/digital_ocean.js inventory -p $DO_KEY -c config/do-full.json -w group_vars/inventory/do_auto

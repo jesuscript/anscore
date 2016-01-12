@@ -1,3 +1,0 @@
-#!/bin/bash
-
-node cloud_shepard/digital_ocean.js create -p $DO_KEY -s group_vars/sshkeys/key.pub -c do-config/do-full.json -w group_vars/inventory/do_auto
