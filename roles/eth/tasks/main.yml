@@ -1,0 +1,20 @@
+- name: open 30303 for UDP
+  ufw: rule=allow port=30303 proto=udp
+  notify: reload ufw
+
+- name: open the rpc port
+  when: "'rpc' in group_names"
+  ufw: rule=allow port=8545 proto=tcp
+  notify: reload ufw
+
+- name: start the eth docker container
+  docker:
+    state: reloaded
+    name: eth
+    image: jesuscript/eth
+    pull: always
+    command: /usr/bin/eth --jsonrpc --rpccorsdomain '*' --master password
+    ports:
+      - "8545:8545/tcp"
+      - "30303:30303/udp"
+  

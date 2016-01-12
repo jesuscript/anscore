@@ -1,5 +1,6 @@
 - hosts: all
   gather_facts: no
+  tags: dependency
   tasks:
     - name: wait for port 22 to be ready
       sudo: no
@@ -7,3 +8,8 @@
     - name: install python
       sudo: yes
       raw: apt-get install -y python
+      
+- hosts: node
+  roles:
+    - role: flu
+

@@ -1,0 +1,53 @@
+- name: open 40404 for UDP
+  ufw: rule=allow port=40404 proto=udp
+  notify: reload ufw
+
+- name: open the rpc port
+  when: "'rpc' in group_names"
+  ufw: rule=allow port=8545 proto=tcp
+  notify: reload ufw
+
+- name: copy flu configs over
+  template: src=flu-config.json dest="{{flu_config_path}}"
+
+- name: start the flu docker container
+  docker:
+    state: reloaded
+    name: flu
+    image: jesuscript/flu
+    pull: always
+    command: /usr/bin/flu --jsonrpc --jsonrpc-cors-domain '*' --config "{{flu_config_path_docker}}"  "{{ '--start-sealing' if 'validator' in group_names else '' }}"
+    volumes:
+      - "{{flu_config_path}}:{{flu_config_path_docker}}"
+    ports:
+      - "8545:8545/tcp"
+      - "40404:40404/udp"
+      - "40404:40404/tcp"
+
+- name: get enode ID
+  shell: docker logs flu 2>&1 | grep -m1 -oP '(Node ID:)([^\@])*' | awk '{print $3}'
+  register: v_enode
+  until: v_enode.stdout != ""
+  retries: 10
+  delay: 1
+  tags: update
+
+- name: get account address
+  shell: curl -X POST --data '{"jsonrpc":"2.0","method":"eth_accounts","params":[],"id":1}' http://localhost:8545 
+  register: v_accounts_res
+  tags: update
+
+- name: save address as a fact
+  set_fact:
+    address: "{{ (v_accounts_res.stdout|from_json).result[0] }}"
+  tags: update
+
+- name: save enode as a fact
+  set_fact: enode={{v_enode.stdout}}
+  tags: update
+
+- name: copy flu configs over
+  template: src=flu-network-config.json dest="{{flu_config_path}}"
+  notify: restart flu
+  tags: update
+      

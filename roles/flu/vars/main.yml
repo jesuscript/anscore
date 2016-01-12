@@ -1,0 +1,2 @@
+flu_config_path: "{{base_dir}}/.flu.json"
+flu_config_path_docker: /flu/.flu.json

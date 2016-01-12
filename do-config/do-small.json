@@ -1,0 +1,12 @@
+{
+  "image": "ubuntu-15-10-x64",
+  "name": "flunode",
+  "size": "512mb",
+  "hosts": [{
+    "hosts": 1,
+    "services": ["node", "rpc"]
+  },{
+    "hosts": 1,
+    "services": ["signer", "node"]
+  }]
+}

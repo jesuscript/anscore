@@ -1,0 +1,54 @@
+{
+  "sealEngine": "BasicAuthority",
+  "options": {
+  },
+  "params": {
+    "accountStartNonce": "0x",
+    "maximumExtraDataSize": "0x1000000",
+    "blockReward": "0x",
+    "registrar": "",
+    "networkID" : "0x45"
+      
+  },
+  "genesis": {
+    "author": "0x0000000000000000000000000000000000000000",
+    "timestamp": "0x00",
+    "parentHash": "0x0000000000000000000000000000000000000000000000000000000000000000",
+    "extraData": "0x",
+    "gasLimit": "0x1000000000000"
+      
+  },
+  "accounts": {
+    "be862ad9abfe6f22bcb087716c7d89a26051f74c": {
+      "wei": "1000000000000000000000"
+          
+    },
+    "0000000000000000000000000000000000000001": {
+      "wei": "1",
+      "precompiled": { "name": "ecrecover", "linear": { "base": 3000, "word": 0 } }
+          
+    },
+    "0000000000000000000000000000000000000002": {
+      "wei": "1",
+      "precompiled": { "name": "sha256", "linear": { "base": 60, "word": 12 } }
+          
+    },
+    "0000000000000000000000000000000000000003": {
+      "wei": "1",
+      "precompiled": { "name": "ripemd160", "linear": { "base": 600, "word": 120 } }
+          
+    },
+    "0000000000000000000000000000000000000004": {
+      "wei": "1",
+      "precompiled": { "name": "identity", "linear": { "base": 15, "word": 3 } }
+          
+    }
+      
+  },
+  "network": {
+    "nodes": [
+      "enode://129ec2b24b985ce80fde0dc49345a0be0bee30072002bf2ca1cdff3b4108d26642f852b73d1a2d2a52797234ae1c68a3758169a67882d6173427d56ecb13a734@192.168.99.100:40404",
+      "enode://f08401300010f0ecebba285d85aa2a865d976990cce095ad09f61b4563aa7cf029f041e1bac93e24501a4c3ee14df3c86ef197db22499d3169d6f99f76e9ba34@192.168.99.100:40405"
+    ]
+  }
+}

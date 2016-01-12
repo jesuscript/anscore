@@ -1,5 +1,5 @@
 - name: update software
-  apt: update_cache=yes #upgrade=yes
+  apt: update_cache=yes 
 
 - name: install prereqs
   apt: state=present pkg={{ item }}
@@ -11,3 +11,12 @@
     - python-pip
     - curl
 
+- name: install docker
+  sudo: yes
+  shell: curl -sSL https://get.docker.com/ | sh
+
+- name: install docker-py
+  pip: name=docker-py
+
+- name: firewall default deny
+  ufw: state=enabled policy=deny

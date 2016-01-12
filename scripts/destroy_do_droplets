@@ -1,4 +1,4 @@
 #!/bin/bash
 
-node cloud_shepard/digital_ocean.js destroy -p $DO_KEY -c config/do-full.json
+node cloud_shepard/digital_ocean.js destroy -p $DO_KEY -c do-config/do-full.json
 
